@@ -4,6 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "client:dev": "webpack-dev-server --config client/webpack.config.js",
+    "client:prod": "webpack --cofnig client/webpack.config.js && node client/server.js",
+    "server": "node server/bin/www",
+    "serve:dev": "concurrently --kill-others \"npm run server\" \"npm run client:dev\"",
+    "serve:prod": "concurrently --kill-others \"npm run server\" \"npm run client:prod\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +26,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "redux": "^4.0.1"
   },
   "devDependencies": {
@@ -28,7 +34,9 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "concurrently": "^4.1.0",
     "css-loader": "^2.1.1",
+    "html-webpack-plugin": "^3.2.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
