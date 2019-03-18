@@ -13,6 +13,16 @@ router.post('/login', (req, res) => {
         });
 });
 
+router.put('/logout', (req, res) => {
+    User.logout(req.body)
+        .then(result => {
+            res.status(200).json(result);
+        })
+        .catch(error => {
+            res.status(500).send(error.message);
+        });
+});
+
 router.put('/status', (req, res) => {
     User.updateStatus(req.body)
         .then(result => {

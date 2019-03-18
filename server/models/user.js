@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const uuidv4 = require('uuid/v4');
+const config = require('../config');
+
+const connection = mongoose.createConnection(config.mongo);
 
 const UserSchema = new mongoose.Schema({
     _id: {
@@ -36,7 +39,10 @@ UserSchema.statics.login = function ({username}) {
         })
         .then(result => {
             if (result) {
-                return result._doc;
+                return User.findOneAndUpdate({_id: result._doc._id}, {$set: {logged: true}})
+                    .then(() => {
+                        return result._doc;
+                    });
             } else {
                 const user = {
                     username
@@ -46,15 +52,18 @@ UserSchema.statics.login = function ({username}) {
         });
 };
 
+UserSchema.statics.logout = function ({_id}) {
+    return User.findOneAndUpdate({_id}, {$set: {logged: false}});
+};
+
 UserSchema.statics.updateStatus = function ({_id, status}) {
     return User.findOneAndUpdate({_id}, {$set: {status}});
 };
 
 UserSchema.statics.list = function (_id) {
-    return User.find({_id: {$ne: _id}});
+    return User.find({_id: {$ne: _id}, logged: true});
 };
 
-const connection = mongoose.createConnection('mongodb://localhost:27017/app');
 const User = connection.model('User', UserSchema);
 
 module.exports = User;

@@ -9,6 +9,12 @@ export const login = (username) => {
     });
 };
 
+export const logout = (_id) => {
+    return axios.put(config.api.url + resource + '/logout', {
+        _id
+    });
+};
+
 export const updateStatus = (_id, status) => {
     return axios.put(config.api.url + resource + '/status', {
         _id,
