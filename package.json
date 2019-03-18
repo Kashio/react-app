@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client:dev": "webpack-dev-server --config client/webpack.config.js",
-    "client:prod": "webpack --cofnig client/webpack.config.js && node client/server.js",
+    "serve:dev": "webpack-dev-server --config client/webpack.config.js",
+    "serve:prod": "webpack --cofnig client/webpack.config.js && node client/server.js",
     "server": "node server/bin/www",
-    "serve:dev": "concurrently --kill-others \"npm run server\" \"npm run client:dev\"",
-    "serve:prod": "concurrently --kill-others \"npm run server\" \"npm run client:prod\"",
+    "start": "concurrently --kill-others \"npm run server\" \"npm run serve:prod\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

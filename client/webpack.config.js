@@ -36,11 +36,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
-    entry: {
-        app: [
-            './index.jsx'
-        ]
-    },
+    entry: './index.jsx',
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
         port: 3000,
