@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
-const uuidv1 = require('uuid/v1');
+const uuidv4 = require('uuid/v4');
 
 const UserSchema = new mongoose.Schema({
     _id: {
         type: String,
         unique: true,
+        default: uuidv4,
         required: true
     },
     username: {
@@ -19,13 +20,14 @@ const UserSchema = new mongoose.Schema({
     },
     logged: {
         type: Boolean,
+        default: true,
         required: true
     },
     createdAt: {
         type: Date,
         default: new Date()
     }
-});
+}, { _id: false });
 
 UserSchema.statics.login = function ({username}) {
     return User
@@ -37,11 +39,7 @@ UserSchema.statics.login = function ({username}) {
                 return result._doc;
             } else {
                 const user = {
-                    _id: uuidv1(),
-                    username,
-                    status: 'Working',
-                    logged: true,
-                    createAt: new Date()
+                    username
                 };
                 return User.create(user);
             }
@@ -50,6 +48,10 @@ UserSchema.statics.login = function ({username}) {
 
 UserSchema.statics.updateStatus = function ({_id, status}) {
     return User.findOneAndUpdate({_id}, {$set: {status}});
+};
+
+UserSchema.statics.list = function (_id) {
+    return User.find({_id: {$ne: _id}});
 };
 
 const connection = mongoose.createConnection('mongodb://localhost:27017/app');
