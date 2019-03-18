@@ -1,5 +1,7 @@
 import React from 'react';
 import './login.css';
+import {connect} from 'react-redux';
+import { Redirect } from 'react-router';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {loginUser} from '../../store/actions/user';
@@ -9,24 +11,35 @@ class Login extends React.Component {
         super(props);
 
         this.state = {
-            name: ''
+            username: ''
         }
     }
 
+    onLoginInputChange = event => {
+        this.setState({
+            username: event.target.value
+        });
+    };
+
     onLoginUser = () => {
-        const {name} = this.state;
+        const {username} = this.state;
         const {loginUser} = this.props;
-        loginUser(name);
+        loginUser(username);
     };
 
     render() {
-        const {name} = this.state;
+        const {username} = this.state;
+        const {user} = this.props;
+        if (user.user) {
+            return <Redirect to='/main'/>;
+        }
         return (
             <div className="login">
                 <TextField
                     className="login-input"
-                    label="Name"
-                    value={name}
+                    label="Username"
+                    value={username}
+                    onChange={this.onLoginInputChange}
                     margin="normal"
                 />
                 <Button variant="contained" className="login-button" onClick={this.onLoginUser}>
@@ -37,6 +50,12 @@ class Login extends React.Component {
     }
 }
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        user: state.user
+    };
+};
+
 const mapDispatchToProps = dispatch => {
     return {
         loginUser: name => {
@@ -46,6 +65,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(Login);

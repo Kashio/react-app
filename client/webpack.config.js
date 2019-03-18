@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: process.env.NODE_ENV === 'dev' ? 'development' : 'prod',
+    mode: process.env.NODE_ENV === 'dev' ? 'development' : 'development',
     resolve: {
         extensions: ['.js', '.jsx', '.json'],
         alias: {
@@ -29,11 +29,11 @@ module.exports = {
             template: 'index.html'
         }),
         new webpack.DefinePlugin({
-            API_URL: process.env.NODE_ENV === 'dev' ? 'http://localhost:8080/' : 'http://localhost:8080/'
+            API_URL: process.env.NODE_ENV === 'dev' ? "'http://localhost:8080/'" : "'http://localhost:8080/'"
         }),
         new webpack.HotModuleReplacementPlugin({})
     ],
-    devtool: 'source-map',
+    devtool: 'source-map-inline',
     context: path.resolve(__dirname, 'src'),
     output: {
         path: path.resolve(__dirname, 'dist'),

@@ -3,15 +3,15 @@ import config from 'config';
 
 const resource = 'user';
 
-export const login = (name) => {
+export const login = (username) => {
     return axios.post(config.api.url + resource + '/login', {
-        name
+        username
     });
 };
 
-export const updateStatus = (id, status) => {
-    return axios.put(config.api.url + resource + '/updateStatus', {
-        id,
+export const updateStatus = (_id, status) => {
+    return axios.put(config.api.url + resource + '/status', {
+        _id,
         status
     });
 };

@@ -1,7 +1,8 @@
 import React from 'react';
 import './main.css';
+import { connect } from 'react-redux';
 import UserDisplay from '@/user-display/user-display';
-import {updateStatus} from "../../store/actions/user";
+import {updateUserStatus} from "../../store/actions/user";
 
 class Main extends React.Component {
     constructor(props) {
@@ -9,10 +10,10 @@ class Main extends React.Component {
     }
 
     render() {
-        const {user, onUpdateStatus} = this.props;
+        const {user, onUpdateUserStatus} = this.props;
         return (
             <div className="main">
-                <UserDisplay user={user} onUpdateStatus={onUpdateStatus}/>
+                <UserDisplay user={user} onUpdateStatus={onUpdateUserStatus}/>
             </div>
         );
     }
@@ -26,8 +27,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onUpdateStatus: (id, status) => {
-            dispatch(updateStatus(id, status));
+        onUpdateUserStatus: (_id, status) => {
+            dispatch(updateUserStatus(_id, status));
         }
     }
 };

@@ -4,12 +4,12 @@ export const LOGIN_REQUEST_FAILURE = 'LOGIN_REQUEST_FAILURE';
 
 import {login} from '../../api/user';
 
-export function loginUser(name) {
+export function loginUser(username) {
     return dispatch => {
         dispatch(loginRequest());
-        login(name)
+        login(username)
             .then(result => {
-                dispatch(loginRequestSuccessful(result.data.user));
+                dispatch(loginRequestSuccessful(result.data));
             })
             .catch(error => {
                 dispatch(loginRequestFailure(error));
@@ -42,44 +42,44 @@ const loginRequestFailure = error => {
     };
 };
 
-export const UPDATE_STATUS_REQUEST = 'UPDATE_STATUS_REQUEST';
-export const UPDATE_STATUS_REQUEST_SUCCESSFUL = 'UPDATE_STATUS_REQUEST_SUCCESSFUL';
-export const UPDATE_STATUS_REQUEST_FAILURE = 'UPDATE_STATUS_REQUEST_FAILURE';
+export const UPDATE_USER_STATUS_REQUEST = 'UPDATE_USER_STATUS_REQUEST';
+export const UPDATE_USER_STATUS_REQUEST_SUCCESSFUL = 'UPDATE_USER_STATUS_REQUEST_SUCCESSFUL';
+export const UPDATE_USER_STATUS_REQUEST_FAILURE = 'UPDATE_USER_STATUS_REQUEST_FAILURE';
 
 import {updateStatus} from '../../api/user';
 
-export function updateStatus(id, status) {
+export function updateUserStatus(_id, status) {
     return dispatch => {
-        dispatch(updateStatusRequest());
-        updateStatus(id, status)
+        dispatch(updateUserStatusRequest());
+        updateStatus(_id, status)
             .then(result => {
-                dispatch(updateStatusRequestSuccess(status));
+                dispatch(updateUserStatusRequestSuccess(status));
             })
             .catch(error => {
-                dispatch(updateStatusRequestFailure(error));
+                dispatch(updateUserStatusRequestFailure(error));
             });
     };
 }
 
-const updateStatusRequest = () => {
+const updateUserStatusRequest = () => {
     return {
-        type: UPDATE_STATUS_REQUEST,
+        type: UPDATE_USER_STATUS_REQUEST,
         data: {}
     };
 };
 
-const updateStatusRequestSuccess = status => {
+const updateUserStatusRequestSuccess = status => {
     return {
-        type: UPDATE_STATUS_REQUEST_SUCCESSFUL,
+        type: UPDATE_USER_STATUS_REQUEST_SUCCESSFUL,
         data: {
             status
         }
     };
 };
 
-const updateStatusRequestFailure = error => {
+const updateUserStatusRequestFailure = error => {
     return {
-        type: UPDATE_STATUS_REQUEST_FAILURE,
+        type: UPDATE_USER_STATUS_REQUEST_FAILURE,
         data: {
             error
         }
