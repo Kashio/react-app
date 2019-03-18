@@ -15,3 +15,11 @@ export const updateStatus = (_id, status) => {
         status
     });
 };
+
+export const list = (_id) => {
+    return axios.get(config.api.url + resource + '/list', {
+        params: {
+            _id
+        }
+    });
+};

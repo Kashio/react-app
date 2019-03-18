@@ -3,6 +3,7 @@ export const LOGIN_REQUEST_SUCCESSFUL = 'LOGIN_REQUEST_SUCCESSFUL';
 export const LOGIN_REQUEST_FAILURE = 'LOGIN_REQUEST_FAILURE';
 
 import {login} from '../../api/user';
+import {listUsers} from './users';
 
 export function loginUser(username) {
     return dispatch => {
@@ -10,6 +11,7 @@ export function loginUser(username) {
         login(username)
             .then(result => {
                 dispatch(loginRequestSuccessful(result.data));
+                dispatch(listUsers(result.data._id));
             })
             .catch(error => {
                 dispatch(loginRequestFailure(error));

@@ -1,16 +1,21 @@
-import { createStore, applyMiddleware } from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './reducers';
 import thunk from 'redux-thunk';
 
 const initialState = {
-  user: {
-      name: null,
-      status: null,
-      request: {
-          status: null,
-          error: null
-      }
-  }
+    user: {
+        name: null,
+        status: null,
+        request: {
+            status: null,
+            error: null
+        }
+    },
+    users: [],
+    filter: {
+        text: null,
+        status: null
+    }
 };
 
 const store = createStore(rootReducer, initialState, applyMiddleware(thunk));

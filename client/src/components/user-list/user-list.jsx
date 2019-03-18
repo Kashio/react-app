@@ -9,7 +9,7 @@ class UserList extends React.PureComponent {
 
     renderUsers = () => {
         const {users} = this.props;
-        return users.map(user => <User key={user.user._id} user={user.user} />);
+        return users.map(user => <User key={user._id} user={user} />);
     };
 
     render() {

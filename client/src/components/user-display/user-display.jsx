@@ -21,7 +21,7 @@ class UserDisplay extends React.PureComponent {
         return (
             <div className="user-display">
                 <div>Hello {user.user.username}, you are {user.user.status}</div>
-                <select className="statuses" onChange={this.onUpdateStatus}>
+                Set your status: <select className="statuses" onChange={this.onUpdateStatus}>
                     {this.renderStatuses()}
                 </select>
             </div>
