@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: process.env.NODE_ENV === 'dev' ? 'development' : 'prod',
     resolve: {
         extensions: ['.js', '.jsx', '.json'],
         alias: {
@@ -27,6 +27,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'index.html'
+        }),
+        new webpack.DefinePlugin({
+            API_URL: process.env.NODE_ENV === 'dev' ? 'http://localhost:8080/' : 'http://localhost:8080/'
         }),
         new webpack.HotModuleReplacementPlugin({})
     ],

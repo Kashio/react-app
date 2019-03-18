@@ -1,5 +1,8 @@
 import React from 'react';
 import './app.css';
+import { Route, Switch } from 'react-router';
+import Login from '../login/login';
+import Main from '../main/main';
 
 class App extends React.Component {
     constructor() {
@@ -9,7 +12,11 @@ class App extends React.Component {
     render() {
         return (
             <div className="app">
-                App
+                APP
+                <Switch>
+                    <Route exact path="/" component={Login} />
+                    <Route path="/main" component={Main} />
+                </Switch>
             </div>
         );
     }
